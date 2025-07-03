@@ -2,6 +2,7 @@
 <html>
   <body>
     <canvas id="canvas" width="640" height="480"></canvas>
+    <!-- Creating a canvas of a custom size where the video will be inside -->
     <input type="range" id="pixelSize" min="1" max="40" value="10" />
 
     <script>
@@ -11,8 +12,9 @@
 
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
-      const pixelSizeSlider = document.getElementById("pixelSize");
+      const pixelSizeSlider = document.getElementById("pixelSize"); // accessing the value the user put in the slider
 
+      // getting webcam
       navigator.mediaDevices
         .getUserMedia({ video: true })
         .then((stream) => {
@@ -24,11 +26,18 @@
 
       function draw() {
         const pixelSize = parseInt(pixelSizeSlider.value);
+        // calculating how many pixels we want for h and w
         const w = Math.floor(canvas.width / pixelSize);
         const h = Math.floor(canvas.height / pixelSize);
 
         ctx.imageSmoothingEnabled = false;
+
+        // DRAWING SCALED DOWN VIDEO ON CANVAS:
+        // arguments: video, start drawing at x=0, y=0 on canvas, width and height of scaled down video to achieve pixel effect
         ctx.drawImage(video, 0, 0, w, h);
+
+        //DRAWING CANVAS ON ITSELF WHILE SCALING IT BACK UP
+        // arguments: canvas, start drawing at x=0, y=0 on canvas, sourse width and height, destination x and y position, destination height and width
         ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
 
         requestAnimationFrame(draw);

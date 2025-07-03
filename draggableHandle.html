@@ -40,17 +40,22 @@
       let isDragging = false;
 
       // Mouse/touch events for dragging the handle
+
+      // Below: Checks if the pointer is within 10px of the split line (splitX).
       canvas.addEventListener("mousedown", (e) => {
         if (Math.abs(e.offsetX - splitX) < 10) isDragging = true;
       });
 
+      //Below: While dragging it updates splitX to the current mouse x position (e.offsetX). also clamps the value so splitX stays between 0 and canvas.width.
       canvas.addEventListener("mousemove", (e) => {
         if (isDragging) splitX = Math.max(0, Math.min(canvas.width, e.offsetX));
       });
 
+      //Below: Stopps dragging when mouse is released or cursor leaves canvas area
       canvas.addEventListener("mouseup", () => (isDragging = false));
       canvas.addEventListener("mouseleave", () => (isDragging = false));
 
+      // SAME THING FOR PHONE
       canvas.addEventListener("touchstart", (e) => {
         const x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
         if (Math.abs(x - splitX) < 20) isDragging = true;

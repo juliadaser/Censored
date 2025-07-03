@@ -37,12 +37,13 @@
         playsInline: true,
       });
 
-      // Dynamic offscreen canvases for pixelation
+      // Right and Left Canvas for Pixellation
       let offLeft = document.createElement("canvas");
       let offRight = document.createElement("canvas");
       let offLeftCtx = offLeft.getContext("2d");
       let offRightCtx = offRight.getContext("2d");
 
+      //getting webcam
       navigator.mediaDevices
         .getUserMedia({ video: true })
         .then((stream) => {
@@ -57,7 +58,7 @@
         const leftPixelSize = parseInt(leftSlider.value, 10);
         const rightPixelSize = parseInt(rightSlider.value, 10);
 
-        // Resize offscreen buffers
+        // Calculating the w and h of videos based on the pixellation amount users inputted
         offLeft.width = Math.floor(canvas.width / leftPixelSize);
         offLeft.height = Math.floor(canvas.height / leftPixelSize);
         offRight.width = Math.floor(canvas.width / rightPixelSize);
@@ -66,13 +67,13 @@
         offLeftCtx = offLeft.getContext("2d");
         offRightCtx = offRight.getContext("2d");
 
-        // Draw webcam into both offscreen canvases
+        // Scale down and draw webcam video into left and right canvases
         offLeftCtx.drawImage(video, 0, 0, offLeft.width, offLeft.height);
         offRightCtx.drawImage(video, 0, 0, offRight.width, offRight.height);
 
         ctx.imageSmoothingEnabled = false;
 
-        // Mirror the whole canvas horizontally
+        // Mirror the whole canvas horizontally (bc we want to mirror the video)
         ctx.save();
         ctx.scale(-1, 1);
         ctx.translate(-canvas.width, 0);
