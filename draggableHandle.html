@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+    <div>
+      <label>
+        Pixellation Left:
+        <input type="range" id="leftPixelSlider" value="5" min="1" max="30" />
+      </label>
+    </div>
+
+    <div>
+      <label>
+        Pixellation Right:
+        <input type="range" id="rightPixelSlider" value="10" min="1" max="30" />
+      </label>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const leftSlider = document.getElementById("leftPixelSlider");
+      const rightSlider = document.getElementById("rightPixelSlider");
+
+      const video = Object.assign(document.createElement("video"), {
+        autoplay: true,
+        playsInline: true,
+      });
+
+      // Dynamic offscreen canvases for pixelation
+      let offLeft = document.createElement("canvas");
+      let offRight = document.createElement("canvas");
+      let offLeftCtx = offLeft.getContext("2d");
+      let offRightCtx = offRight.getContext("2d");
+
+      // Split location and drag state
+      let splitX = canvas.width / 2;
+      let isDragging = false;
+
+      // Mouse/touch events for dragging the handle
+      canvas.addEventListener("mousedown", (e) => {
+        if (Math.abs(e.offsetX - splitX) < 10) isDragging = true;
+      });
+
+      canvas.addEventListener("mousemove", (e) => {
+        if (isDragging) splitX = Math.max(0, Math.min(canvas.width, e.offsetX));
+      });
+
+      canvas.addEventListener("mouseup", () => (isDragging = false));
+      canvas.addEventListener("mouseleave", () => (isDragging = false));
+
+      canvas.addEventListener("touchstart", (e) => {
+        const x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+        if (Math.abs(x - splitX) < 20) isDragging = true;
+      });
+
+      canvas.addEventListener("touchmove", (e) => {
+        if (isDragging) {
+          const x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+          splitX = Math.max(0, Math.min(canvas.width, x));
+        }
+      });
+
+      canvas.addEventListener("touchend", () => (isDragging = false));
+
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((stream) => {
+          video.srcObject = stream;
+        })
+        .catch((err) => {
+          console.error("Webcam error:", err);
+        });
+
+      function draw() {
+        const leftPixelSize = parseInt(leftSlider.value, 10);
+        const rightPixelSize = parseInt(rightSlider.value, 10);
+
+        // Resize offscreen buffers
+        offLeft.width = Math.floor(canvas.width / leftPixelSize);
+        offLeft.height = Math.floor(canvas.height / leftPixelSize);
+        offRight.width = Math.floor(canvas.width / rightPixelSize);
+        offRight.height = Math.floor(canvas.height / rightPixelSize);
+
+        offLeftCtx = offLeft.getContext("2d");
+        offRightCtx = offRight.getContext("2d");
+
+        offLeftCtx.drawImage(video, 0, 0, offLeft.width, offLeft.height);
+        offRightCtx.drawImage(video, 0, 0, offRight.width, offRight.height);
+
+        ctx.imageSmoothingEnabled = false;
+
+        // Mirror the canvas horizontally
+        ctx.save();
+        ctx.scale(-1, 1);
+        ctx.translate(-canvas.width, 0);
+
+        // LEFT side (on screen: right side after mirror)
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(canvas.width - splitX, 0, splitX, canvas.height);
+        ctx.clip();
+        ctx.drawImage(
+          offLeft,
+          0,
+          0,
+          offLeft.width,
+          offLeft.height,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+        ctx.restore();
+
+        // RIGHT side (on screen: left side after mirror)
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, 0, canvas.width - splitX, canvas.height);
+        ctx.clip();
+        ctx.drawImage(
+          offRight,
+          0,
+          0,
+          offRight.width,
+          offRight.height,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+        ctx.restore();
+
+        // Draw draggable split handle (just a vertical white line)
+        ctx.restore(); // undo mirror
+        ctx.beginPath();
+        ctx.moveTo(splitX, 0);
+        ctx.lineTo(splitX, canvas.height);
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        requestAnimationFrame(draw);
+      }
+
+      video.addEventListener("play", () => requestAnimationFrame(draw));
+    </script>
+  </body>
+</html>
