@@ -2,16 +2,34 @@
 <html>
   <body>
     <canvas id="canvas" width="640" height="480"></canvas>
-    <input type="range" id="pixelSize" min="1" max="40" value="10" />
+    <input type="range" id="split" value="320" />
 
     <script>
-      const video = document.createElement("video");
-      video.autoplay = true;
-      video.playsInline = true;
-
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
-      const pixelSizeSlider = document.getElementById("pixelSize");
+      const splitter = document.getElementById("split");
+      splitter.max = canvas.width;
+
+      // 👇 Easily change pixelation level here
+      const leftPixelSize = 5;
+      const rightPixelSize = 10;
+
+      const video = Object.assign(document.createElement("video"), {
+        autoplay: true,
+        playsInline: true,
+      });
+
+      // Create off-screen canvas for left (pixelSize 5)
+      const offLeft = document.createElement("canvas");
+      offLeft.width = Math.floor(canvas.width / leftPixelSize);
+      offLeft.height = Math.floor(canvas.height / leftPixelSize);
+      const offLeftCtx = offLeft.getContext("2d");
+
+      // Create off-screen canvas for right (pixelSize 10)
+      const offRight = document.createElement("canvas");
+      offRight.width = Math.floor(canvas.width / rightPixelSize);
+      offRight.height = Math.floor(canvas.height / rightPixelSize);
+      const offRightCtx = offRight.getContext("2d");
 
       navigator.mediaDevices
         .getUserMedia({ video: true })
@@ -23,20 +41,53 @@
         });
 
       function draw() {
-        const pixelSize = parseInt(pixelSizeSlider.value);
-        const w = Math.floor(canvas.width / pixelSize);
-        const h = Math.floor(canvas.height / pixelSize);
+        // Draw webcam into both offscreen canvases
+        offLeftCtx.drawImage(video, 0, 0, offLeft.width, offLeft.height);
+        offRightCtx.drawImage(video, 0, 0, offRight.width, offRight.height);
 
+        const splitX = parseInt(splitter.value, 10);
         ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(video, 0, 0, w, h);
-        ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
+
+        // LEFT side (pixelated with leftPixelSize)
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, 0, splitX, canvas.height);
+        ctx.clip();
+        ctx.drawImage(
+          offLeft,
+          0,
+          0,
+          offLeft.width,
+          offLeft.height,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+        ctx.restore();
+
+        // RIGHT side (pixelated with rightPixelSize)
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(splitX, 0, canvas.width - splitX, canvas.height);
+        ctx.clip();
+        ctx.drawImage(
+          offRight,
+          0,
+          0,
+          offRight.width,
+          offRight.height,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+        ctx.restore();
 
         requestAnimationFrame(draw);
       }
 
-      video.addEventListener("play", () => {
-        requestAnimationFrame(draw);
-      });
+      video.addEventListener("play", () => requestAnimationFrame(draw));
     </script>
   </body>
 </html>
