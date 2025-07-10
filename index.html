@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Censored</title>
-		<link rel="stylesheet" href="style.css">
-	</head>
- 	<body>
+  <head>
+    <title>Censored</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="titleDiv">
+      <h1>CENSORED</h1>
+      <div id="subtitle">
+        <h2>Press Freedom Visualizer</h2>
+        <button id="infoButton">INFO</button>
+      </div>
+    </div>
 
- 		<div id="titleDiv">
- 			<h1>CENSORED</h1>
- 			<div id="subtitle">
-	 			<h2>Press Freedom Visualizer</h2>
-	 			<button id="infoButton">INFO</button>
-	 		</div>
- 		</div>
+    <div id="pixelDiv">
+      <div id="dropDowns">
+        <div class="select-wrapper">
+          <span class="pulsing-dot" aria-hidden="true"></span>
+          <span id="userCountry">Loading...</span>
+        </div>
+        <div class="select-wrapper">
+          <select id="selectCountry">
+            <option value="Select Country">Select Country</option>
+          </select>
+        </div>
+      </div>
+      <div id="pixelScreen">
+        <canvas id="canvas" width="640" height="450"></canvas>
 
- 		<div id="pixelDiv">
- 			<div id="dropDowns">
- 				<div class="select-wrapper">
-				  <span class="pulsing-dot" aria-hidden="true"></span>
-				  <select id="userCountry">
-				  	<option disabled selected hidden value="Your Country">Your Country</option>
-				  </select>
-				</div>
- 				<div class="select-wrapper">
-				  <select id="selectCountry">
-				    <option value="Select Country">Select Country</option>
-				  </select>
-				</div>
- 			</div>
- 			<div id="pixelScreen">
- 				<canvas id="canvas" width="640" height="450"></canvas>
-
-			    <!-- <div>
+        <!-- <div>
 			      <label>
 			      	Pixellation Left:<input type="range" id="leftPixelSlider" value="5" min="1" max="30" />
 			      </label>
@@ -43,10 +40,10 @@
 			        <input type="range" id="rightPixelSlider" value="10" min="1" max="30" />
 			      </label>
 			    </div> -->
+      </div>
+    </div>
 
- 			</div>
- 		</div>
-
-    	<script src="script.js"></script>
- 	</body>
- </html>
+    <script src="js/script.js"></script>
+    <script src="js/parseCSV.js"></script>
+  </body>
+</html>
