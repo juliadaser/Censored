@@ -97,36 +97,77 @@ async function matchUserCountry(csvData) {
 }
 
 // populating dropdown + adjusting pixellation value according to CSV data.
+// function populateCountryDropdown(csvData) {
+//   const select = document.getElementById("dropdownMenu");
+
+//   // Clear existing options except default
+//   select.innerHTML = '<option value="" style="padding:5px">Select Country</option>';
+
+//   csvData.forEach((row) => {
+//     const countryName = row["Country_EN"];
+//     if (countryName) {
+//       const option = document.createElement("option");
+//       option.value = countryName;
+//       option.textContent = countryName;
+//       option.style.padding = "5px";
+//       select.appendChild(option);
+//     }
+//   });
+
+//   // Listen for changes on dropdown, update pixellaiton value accordingly
+//   select.addEventListener("change", () => {
+//     const selected = select.value;
+//     const match = csvData.find(
+//       (row) => row["Country_EN"]?.toLowerCase() === selected.toLowerCase()
+//     );
+//     if (match) {
+//       SelectedCountryVal = match["Score 2025"];
+//     } else {
+//       SelectedCountryVal = null;
+//     }
+//   });
+// }
+
 function populateCountryDropdown(csvData) {
-  const select = document.getElementById("dropdownMenu");
+  const menu = document.getElementById("dropdownMenu");
 
-  // Clear existing options except default
-  select.innerHTML = '<option value=""></option>';
+  // Clear existing options
+  menu.innerHTML = '';
 
+  // Create <li> items for each country
   csvData.forEach((row) => {
     const countryName = row["Country_EN"];
     if (countryName) {
-      const option = document.createElement("option");
-      option.value = countryName;
-      option.textContent = countryName;
-      option.style.padding = "5px";
-      select.appendChild(option);
-    }
-  });
+      const li = document.createElement("li");
+      li.textContent = countryName;
+      li.setAttribute("data-value", countryName);
+      li.style.padding = "5px";
+      li.style.cursor = "pointer"; // makes it feel clickable
+      menu.appendChild(li);
 
-  // Listen for changes on dropdown, update pixellaiton value accordingly
-  select.addEventListener("change", () => {
-    const selected = select.value;
-    const match = csvData.find(
-      (row) => row["Country_EN"]?.toLowerCase() === selected.toLowerCase()
-    );
-    if (match) {
-      SelectedCountryVal = match["Score 2025"];
-    } else {
-      SelectedCountryVal = null;
+      // Add click event to handle selection (same as in CODE 1)
+      li.addEventListener("click", () => {
+        document.getElementById('dropdownToggle').textContent = countryName;
+        document.getElementById('dropdownToggle').setAttribute('data-value', countryName);
+        document.getElementById('dropdown').classList.remove('open');
+
+        const match = csvData.find(
+          (row) => row["Country_EN"]?.toLowerCase() === countryName.toLowerCase()
+        );
+        if (match) {
+          SelectedCountryVal = match["Score 2025"];
+        } else {
+          SelectedCountryVal = null;
+        }
+
+        console.log('Selected:', countryName, SelectedCountryVal);
+      });
     }
   });
 }
+
+
+
 
 // Calculating the lowest and highest score
 function calculateMinMaxScores(data) {

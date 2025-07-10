@@ -174,7 +174,7 @@ function draw() {
 video.addEventListener("play", () => requestAnimationFrame(draw));
 
 
-//ADD COUNTRYS
+//ADD COUNTRIES
 
 const dropdown = document.getElementById('dropdown');
 const toggle = document.getElementById('dropdownToggle');
