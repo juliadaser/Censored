@@ -172,3 +172,32 @@ function draw() {
 }
 
 video.addEventListener("play", () => requestAnimationFrame(draw));
+
+
+//ADD COUNTRYS
+
+const dropdown = document.getElementById('dropdown');
+const toggle = document.getElementById('dropdownToggle');
+const menu = document.getElementById('dropdownMenu');
+const options = menu.querySelectorAll('li');
+
+toggle.addEventListener('click', () => {
+  dropdown.classList.toggle('open');
+});
+
+options.forEach(option => {
+  option.addEventListener('click', () => {
+    toggle.textContent = option.textContent;
+    toggle.setAttribute('data-value', option.getAttribute('data-value'));
+    dropdown.classList.remove('open');
+    // Optional: trigger a callback or event
+    console.log('Selected:', option.getAttribute('data-value'));
+  });
+});
+
+// Optional: close on outside click
+document.addEventListener('click', e => {
+  if (!dropdown.contains(e.target)) {
+    dropdown.classList.remove('open');
+  }
+});

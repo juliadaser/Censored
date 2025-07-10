@@ -19,11 +19,17 @@
           <span class="pulsing-dot" aria-hidden="true"></span>
           <span id="userCountry">Loading...</span>
         </div>
-        <div class="select-wrapper">
-          <select id="selectCountry">
-            <option value="Select Country">Select Country</option>
-          </select>
+        <!-- <div class="select-wrapper"> -->
+          <div class="custom-dropdown" id="dropdown">
+          <button class="dropdown-toggle" id="dropdownToggle">Select Country</button>
+          <ul class="dropdown-menu" id="dropdownMenu">
+            <li data-value="USA">USA</li>
+            <li data-value="Canada">Canada</li>
+            <li data-value="UK">UK</li>
+            <!-- Add more countries as needed -->
+          </ul>
         </div>
+        <!-- </div> -->
       </div>
       <div id="pixelScreen">
         <canvas id="canvas" width="640" height="450"></canvas>

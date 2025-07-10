@@ -98,10 +98,10 @@ async function matchUserCountry(csvData) {
 
 // populating dropdown + adjusting pixellation value according to CSV data.
 function populateCountryDropdown(csvData) {
-  const select = document.getElementById("selectCountry");
+  const select = document.getElementById("dropdownMenu");
 
   // Clear existing options except default
-  select.innerHTML = '<option value="">Select Country</option>';
+  select.innerHTML = '<option value=""></option>';
 
   csvData.forEach((row) => {
     const countryName = row["Country_EN"];
@@ -109,6 +109,7 @@ function populateCountryDropdown(csvData) {
       const option = document.createElement("option");
       option.value = countryName;
       option.textContent = countryName;
+      option.style.padding = "5px";
       select.appendChild(option);
     }
   });
