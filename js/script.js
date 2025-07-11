@@ -1,5 +1,8 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+const canvasWidth = parseInt(canvas.dataset.width, 10);
+let splitX = canvasWidth / 2;
+let isDragging = false;
 
 const video = Object.assign(document.createElement("video"), {
   autoplay: true,
@@ -12,9 +15,29 @@ let SelCountryCanvas = document.createElement("canvas");
 let offLeftCtx = UsrCountryCanvas.getContext("2d");
 let offRightCtx = SelCountryCanvas.getContext("2d");
 
-// Split location and drag state
-let splitX = canvas.width / 2;
-let isDragging = false;
+// accessing the dropdown to adjust position according to screen size
+const dropDowns = document.getElementById("dropDowns");
+const dropDownMenu = document.querySelector(".dropdown-menu");
+
+navigator.mediaDevices
+  .getUserMedia({ video: true })
+  .then((stream) => {
+    video.srcObject = stream;
+
+    video.addEventListener("loadedmetadata", () => {
+      const aspectRatio = video.videoWidth / video.videoHeight;
+      const calculatedHeight = canvasWidth / aspectRatio;
+
+      canvas.width = canvasWidth;
+      canvas.height = calculatedHeight;
+
+      dropDowns.style.width = canvasWidth + 2 + "px";
+      dropDownMenu.style.height = calculatedHeight + "px";
+    });
+  })
+  .catch((err) => {
+    console.error("Webcam error:", err);
+  });
 
 // Checking if mouse is within 10px of splitX.
 canvas.addEventListener("mousedown", (e) => {
@@ -42,15 +65,6 @@ canvas.addEventListener("touchmove", (e) => {
   }
 });
 canvas.addEventListener("touchend", () => (isDragging = false));
-
-navigator.mediaDevices
-  .getUserMedia({ video: true })
-  .then((stream) => {
-    video.srcObject = stream;
-  })
-  .catch((err) => {
-    console.error("Webcam error:", err);
-  });
 
 function map(value, inMin, inMax, outMin, outMax) {
   return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
@@ -173,31 +187,30 @@ function draw() {
 
 video.addEventListener("play", () => requestAnimationFrame(draw));
 
-
 //ADD COUNTRIES
 
-const dropdown = document.getElementById('dropdown');
-const toggle = document.getElementById('dropdownToggle');
-const menu = document.getElementById('dropdownMenu');
-const options = menu.querySelectorAll('li');
+const dropdown = document.getElementById("dropdown");
+const toggle = document.getElementById("dropdownToggle");
+const menu = document.getElementById("dropdownMenu");
+const options = menu.querySelectorAll("li");
 
-toggle.addEventListener('click', () => {
-  dropdown.classList.toggle('open');
+toggle.addEventListener("click", () => {
+  dropdown.classList.toggle("open");
 });
 
-options.forEach(option => {
-  option.addEventListener('click', () => {
+options.forEach((option) => {
+  option.addEventListener("click", () => {
     toggle.textContent = option.textContent;
-    toggle.setAttribute('data-value', option.getAttribute('data-value'));
-    dropdown.classList.remove('open');
+    toggle.setAttribute("data-value", option.getAttribute("data-value"));
+    dropdown.classList.remove("open");
     // Optional: trigger a callback or event
-    console.log('Selected:', option.getAttribute('data-value'));
+    console.log("Selected:", option.getAttribute("data-value"));
   });
 });
 
 // Optional: close on outside click
-document.addEventListener('click', e => {
+document.addEventListener("click", (e) => {
   if (!dropdown.contains(e.target)) {
-    dropdown.classList.remove('open');
+    dropdown.classList.remove("open");
   }
 });

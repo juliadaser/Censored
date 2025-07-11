@@ -96,43 +96,11 @@ async function matchUserCountry(csvData) {
   }
 }
 
-// populating dropdown + adjusting pixellation value according to CSV data.
-// function populateCountryDropdown(csvData) {
-//   const select = document.getElementById("dropdownMenu");
-
-//   // Clear existing options except default
-//   select.innerHTML = '<option value="" style="padding:5px">Select Country</option>';
-
-//   csvData.forEach((row) => {
-//     const countryName = row["Country_EN"];
-//     if (countryName) {
-//       const option = document.createElement("option");
-//       option.value = countryName;
-//       option.textContent = countryName;
-//       option.style.padding = "5px";
-//       select.appendChild(option);
-//     }
-//   });
-
-//   // Listen for changes on dropdown, update pixellaiton value accordingly
-//   select.addEventListener("change", () => {
-//     const selected = select.value;
-//     const match = csvData.find(
-//       (row) => row["Country_EN"]?.toLowerCase() === selected.toLowerCase()
-//     );
-//     if (match) {
-//       SelectedCountryVal = match["Score 2025"];
-//     } else {
-//       SelectedCountryVal = null;
-//     }
-//   });
-// }
-
 function populateCountryDropdown(csvData) {
   const menu = document.getElementById("dropdownMenu");
 
   // Clear existing options
-  menu.innerHTML = '';
+  menu.innerHTML = "";
 
   // Create <li> items for each country
   csvData.forEach((row) => {
@@ -147,12 +115,15 @@ function populateCountryDropdown(csvData) {
 
       // Add click event to handle selection (same as in CODE 1)
       li.addEventListener("click", () => {
-        document.getElementById('dropdownToggle').textContent = countryName;
-        document.getElementById('dropdownToggle').setAttribute('data-value', countryName);
-        document.getElementById('dropdown').classList.remove('open');
+        document.getElementById("dropdownToggle").textContent = countryName;
+        document
+          .getElementById("dropdownToggle")
+          .setAttribute("data-value", countryName);
+        document.getElementById("dropdown").classList.remove("open");
 
         const match = csvData.find(
-          (row) => row["Country_EN"]?.toLowerCase() === countryName.toLowerCase()
+          (row) =>
+            row["Country_EN"]?.toLowerCase() === countryName.toLowerCase()
         );
         if (match) {
           SelectedCountryVal = match["Score 2025"];
@@ -160,14 +131,11 @@ function populateCountryDropdown(csvData) {
           SelectedCountryVal = null;
         }
 
-        console.log('Selected:', countryName, SelectedCountryVal);
+        console.log("Selected:", countryName, SelectedCountryVal);
       });
     }
   });
 }
-
-
-
 
 // Calculating the lowest and highest score
 function calculateMinMaxScores(data) {
@@ -177,14 +145,4 @@ function calculateMinMaxScores(data) {
 
   lowestScore = Math.min(...scores);
   highestScore = Math.max(...scores);
-
-  console.log("Lowest Score 2025:", lowestScore);
-  console.log("Highest Score 2025:", highestScore);
-
-  // Optional: Find countries with those scores
-  const lowestCountry = data.find((row) => row["Score 2025"] === lowestScore);
-  const highestCountry = data.find((row) => row["Score 2025"] === highestScore);
-
-  console.log("Country with lowest score:", lowestCountry?.["Country_EN"]);
-  console.log("Country with highest score:", highestCountry?.["Country_EN"]);
 }
