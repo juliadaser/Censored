@@ -98,6 +98,8 @@ async function matchUserCountry(csvData) {
 
 function populateCountryDropdown(csvData) {
   const menu = document.getElementById("dropdownMenu");
+  const toggle = document.getElementById("dropdownToggle");
+  const dropdown = document.getElementById("dropdown");
 
   // Clear existing options
   menu.innerHTML = "";
@@ -107,32 +109,34 @@ function populateCountryDropdown(csvData) {
     const countryName = row["Country_EN"];
     if (countryName) {
       const li = document.createElement("li");
-      li.textContent = countryName;
       li.setAttribute("data-value", countryName);
       li.style.padding = "5px";
-      li.style.cursor = "pointer"; // makes it feel clickable
-      menu.appendChild(li);
+      li.style.cursor = "pointer";
 
-      // Add click event to handle selection (same as in CODE 1)
+      const span = document.createElement("span");
+      span.textContent = countryName;
+      li.appendChild(span);
+
       li.addEventListener("click", () => {
-        document.getElementById("dropdownToggle").textContent = countryName;
-        document
-          .getElementById("dropdownToggle")
-          .setAttribute("data-value", countryName);
-        document.getElementById("dropdown").classList.remove("open");
+        toggle.textContent = countryName;
+        toggle.setAttribute("data-value", countryName);
+        dropdown.classList.remove("open");
 
         const match = csvData.find(
           (row) =>
             row["Country_EN"]?.toLowerCase() === countryName.toLowerCase()
         );
-        if (match) {
-          SelectedCountryVal = match["Score 2025"];
-        } else {
-          SelectedCountryVal = null;
-        }
+        SelectedCountryVal = match ? match["Score 2025"] : null;
 
         console.log("Selected:", countryName, SelectedCountryVal);
       });
+
+      // (Optional) JS hover for debug/logging
+      li.addEventListener("mouseenter", () => {
+        console.log("Hovering:", countryName);
+      });
+
+      menu.appendChild(li);
     }
   });
 }

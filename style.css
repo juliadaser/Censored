@@ -40,6 +40,12 @@ h2 {
   cursor: pointer;
 }
 
+#infoButton:hover{
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
 /*DROPDOWNS*/
 
 #dropDowns {
@@ -61,6 +67,7 @@ h2 {
   border: none;
   padding-left: 1px;
 }
+
 
 .select-wrapper {
   position: relative;
@@ -120,16 +127,17 @@ h2 {
 
 .custom-dropdown {
   position: relative;
-  display: inline-block;
+/*  display: flex;*/
   font-family: sans-serif;
   width: 200px;
   border: 1px solid black;
   border-bottom: none;
   cursor: pointer;
+  background-color: transparent;
 }
 
 .dropdown-toggle {
-  background: white;
+  background-color: transparent;
   font-family: "Geist", sans-serif;
   font-size: 16px;
   color: black;
@@ -141,6 +149,12 @@ h2 {
   display: flex;
   align-items: center;
   box-sizing: border-box;
+}
+
+.custom-dropdown:hover,
+.custom-dropdown:hover .dropdown-toggle {
+  background-color: black;
+  color: white;
 }
 
 .dropdown-menu {
@@ -159,14 +173,40 @@ h2 {
 }
 
 .dropdown-menu li {
+  position: relative;
+  overflow: hidden;
   width: 100%;
   cursor: pointer;
   padding: 10px 20px;
   box-sizing: border-box;
+  color: black;
+  background-color: white;
+  transition: color 0.4s ease;
+}
+
+.dropdown-menu li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background-color: black;
+  z-index: 0;
+  transition: width 0.9s ease;
+}
+
+.dropdown-menu li:hover::before {
+  width: 100%;
 }
 
 .dropdown-menu li:hover {
-  background-color: #f0f0f0;
+  color: white;
+}
+
+.dropdown-menu li span {
+  position: relative;
+  z-index: 1;
 }
 
 .custom-dropdown.open .dropdown-menu {

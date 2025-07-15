@@ -196,8 +196,8 @@ function draw() {
   ctx.beginPath();
   ctx.moveTo(splitX, 0);
   ctx.lineTo(splitX, canvas.height);
-  ctx.strokeStyle = "white";
-  ctx.lineWidth = 2;
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 1;
   ctx.stroke();
 
   const rectWidth = 40;
@@ -248,9 +248,11 @@ options.forEach((option) => {
   });
 });
 
-// Optional: close on outside click
+// close on outside click
 document.addEventListener("click", (e) => {
   if (!dropdown.contains(e.target)) {
     dropdown.classList.remove("open");
   }
 });
+
+
