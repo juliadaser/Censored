@@ -5,29 +5,40 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="titleDiv">
-      <h1>CENSORED</h1>
-      <div id="subtitle">
-        <h2>Press Freedom Visualizer</h2>
-        <button id="infoButton">INFO</button>
-      </div>
-    </div>
 
-    <div id="pixelDiv">
-      <div id="dropDowns">
-        <div class="select-wrapper">
-          <span class="pulsing-dot" aria-hidden="true"></span>
-          <span id="userCountry">Loading...</span>
-        </div>
-        <div class="custom-dropdown" id="dropdown">
-          <button class="dropdown-toggle" id="dropdownToggle">
-            Select Country
-          </button>
-          <ul class="dropdown-menu" id="dropdownMenu"></ul>
+    <div id="leftSide">
+
+      <div id="titleDiv">
+        <h1>CENSORED</h1>
+        <div id="subtitle">
+          <h2>Press Freedom Visualizer</h2>
+          <button id="infoButton" onclick="displayInfo()">INFO</button>
         </div>
       </div>
-      <div id="pixelScreen">
-        <canvas id="canvas" data-width="700"></canvas>
+
+      <div id="pixelDiv">
+        <div id="dropDowns">
+          <div class="select-wrapper">
+            <span class="pulsing-dot" aria-hidden="true"></span>
+            <span id="userCountry">Loading...</span>
+          </div>
+          <div class="custom-dropdown" id="dropdown">
+            <button class="dropdown-toggle" id="dropdownToggle">
+              Select Country
+            </button>
+            <ul class="dropdown-menu" id="dropdownMenu"></ul>
+          </div>
+        </div>
+        <div id="pixelScreen">
+          <canvas id="canvas" data-width="700"></canvas>
+        </div>
+      </div>
+
+    </div>
+    <div id="rightSide">
+      <div id="infoPopup">
+        
+
       </div>
     </div>
 

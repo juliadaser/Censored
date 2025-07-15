@@ -19,6 +19,18 @@ let offRightCtx = SelCountryCanvas.getContext("2d");
 const dropDowns = document.getElementById("dropDowns");
 const dropDownMenu = document.querySelector(".dropdown-menu");
 
+// INFO POPUP BUTTON
+let infoBtn = document.getElementById("infoButton");
+let infoPopup = document.getElementById("infoPopup");
+let popUpShowing = false;
+
+function displayInfo() {
+  if(popUpShowing == false){infoPopup.style.display = "block"; popUpShowing = true;}
+  else if(popUpShowing == true){infoPopup.style.display = "none"; popUpShowing = false;}
+}
+
+// CANVAS SIZING
+
 function getResponsiveCanvasWidth() {
   if (window.matchMedia('(max-width: 700px)').matches) {
     return 450; // mobile
@@ -38,6 +50,7 @@ function updateCanvasSizeWithAspectRatio() {
 
   canvas.width = canvasWidth;
   canvas.height = calculatedHeight;
+  // document.getElementById('infoPopup').style.height = calculatedHeight;
 
   dropDowns.style.width = (canvasWidth + 2) + "px";
   dropDownMenu.style.height = calculatedHeight + "px";
