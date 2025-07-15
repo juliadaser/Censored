@@ -3,7 +3,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist:wght@300&family=Manrope:wght@200..800&display=swap");
 
 body {
-  padding: 1% 10% 2% 10%;
+  padding: 1.5%;
+  padding-top: 0px;
   font-family: "Geist", sans-serif;
 }
 
@@ -11,6 +12,7 @@ h1 {
   font-family: "Geo", sans-serif;
   font-size: 80px;
   margin: 0px;
+  padding: 0px;
 }
 
 h2 {
@@ -75,8 +77,8 @@ h2 {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: red;
-  box-shadow: 0 0 0 rgba(255, 0, 0, 0.4);
+  background-color: blue;
+  box-shadow: 0 0 0 rgba(0, 0, 255, 0.4);
   animation: pulse 1.5s infinite;
 }
 
@@ -84,15 +86,15 @@ h2 {
 @keyframes pulse {
   0% {
     transform: translateY(-50%) scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
+    box-shadow: 0 0 0 0 rgba(0, 0, 255, 0.4);
   }
   70% {
     transform: translateY(-50%) scale(1.5);
-    box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 10px rgba(0, 0, 255, 0);
   }
   100% {
     transform: translateY(-50%) scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(0, 0, 255, 0);
   }
 }
 
@@ -105,10 +107,13 @@ h2 {
   width: 200px;
   border: 1px solid black;
   border-bottom: none;
+  cursor: pointer;
 }
 
 .dropdown-toggle {
   background: white;
+  font-family: "Geist", sans-serif;
+  font-size: 16px;
   color: black;
   border: none;
   cursor: pointer;

@@ -19,25 +19,50 @@ let offRightCtx = SelCountryCanvas.getContext("2d");
 const dropDowns = document.getElementById("dropDowns");
 const dropDownMenu = document.querySelector(".dropdown-menu");
 
-navigator.mediaDevices
-  .getUserMedia({ video: true })
+function getResponsiveCanvasWidth() {
+  if (window.matchMedia('(max-width: 700px)').matches) {
+    return 450; // mobile
+  } else if (window.matchMedia('(max-width: 900px)').matches) {
+    return 650; // tablet
+  } else {
+    return 700; // desktop
+  }
+}
+
+function updateCanvasSizeWithAspectRatio() {
+  const canvasWidth = getResponsiveCanvasWidth();
+  canvas.setAttribute('data-width', canvasWidth);
+
+  const aspectRatio = video.videoWidth / video.videoHeight || 4 / 3; // Fallback ratio
+  const calculatedHeight = canvasWidth / aspectRatio;
+
+  canvas.width = canvasWidth;
+  canvas.height = calculatedHeight;
+
+  dropDowns.style.width = (canvasWidth + 2) + "px";
+  dropDownMenu.style.height = calculatedHeight + "px";
+}
+
+// Step 3: Listen for screen resizes
+window.addEventListener('resize', () => {
+  if (video.videoWidth) {
+    updateCanvasSizeWithAspectRatio();
+  }
+});
+
+// Step 4: Get webcam and update canvas
+navigator.mediaDevices.getUserMedia({ video: true })
   .then((stream) => {
     video.srcObject = stream;
 
     video.addEventListener("loadedmetadata", () => {
-      const aspectRatio = video.videoWidth / video.videoHeight;
-      const calculatedHeight = canvasWidth / aspectRatio;
-
-      canvas.width = canvasWidth;
-      canvas.height = calculatedHeight;
-
-      dropDowns.style.width = canvasWidth + 2 + "px";
-      dropDownMenu.style.height = calculatedHeight + "px";
+      updateCanvasSizeWithAspectRatio(); // Initial draw once we have metadata
     });
   })
   .catch((err) => {
     console.error("Webcam error:", err);
   });
+
 
 // Checking if mouse is within 10px of splitX.
 canvas.addEventListener("mousedown", (e) => {
@@ -194,7 +219,9 @@ const toggle = document.getElementById("dropdownToggle");
 const menu = document.getElementById("dropdownMenu");
 const options = menu.querySelectorAll("li");
 
-toggle.addEventListener("click", () => {
+menu.style.fontFamily = "Geist";
+
+dropdown.addEventListener("click", () => {
   dropdown.classList.toggle("open");
 });
 
