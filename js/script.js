@@ -1,8 +1,8 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const canvasWidth = parseInt(canvas.dataset.width, 10);
-let splitX = canvasWidth / 2;
 let isDragging = false;
+let splitX;
 
 const video = Object.assign(document.createElement("video"), {
   autoplay: true,
@@ -33,7 +33,7 @@ function displayInfo() {
 
 function getResponsiveCanvasWidth() {
   if (window.matchMedia('(max-width: 700px)').matches) {
-    return 450; // mobile
+    return 310; // mobile
   } else if (window.matchMedia('(max-width: 900px)').matches) {
     return 650; // tablet
   } else {
@@ -44,6 +44,7 @@ function getResponsiveCanvasWidth() {
 function updateCanvasSizeWithAspectRatio() {
   const canvasWidth = getResponsiveCanvasWidth();
   canvas.setAttribute('data-width', canvasWidth);
+  splitX = canvasWidth / 2;
 
   const aspectRatio = video.videoWidth / video.videoHeight || 4 / 3; // Fallback ratio
   const calculatedHeight = canvasWidth / aspectRatio;

@@ -222,27 +222,21 @@ h2 {
   body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 
-  h1 {
-    font-size: 100px;
+  #subtitle{
+    font-size: 12px;
   }
 
   #rightSide {
     width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     padding: 0px;
     padding-top: 15px;
   }
 
   #infoPopup {
     border: 1px solid black;
-    width: 450px;
+    width: 310px;
     height: 400px;
   }
 }
@@ -252,10 +246,6 @@ h2 {
   body {
     display: flex;
     flex-direction: column;
-  }
-
-  h1 {
-    font-size: 100px;
   }
 
   #rightSide {
