@@ -33,7 +33,7 @@ function displayInfo() {
 
 function getResponsiveCanvasWidth() {
   if (window.matchMedia('(max-width: 700px)').matches) {
-    return 310; // mobile
+    return 350; // mobile
   } else if (window.matchMedia('(max-width: 900px)').matches) {
     return 650; // tablet
   } else {

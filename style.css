@@ -222,6 +222,8 @@ h2 {
   body {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   #subtitle{
@@ -232,11 +234,14 @@ h2 {
     width: 100vw;
     padding: 0px;
     padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   #infoPopup {
     border: 1px solid black;
-    width: 310px;
+    width: 350px;
     height: 400px;
   }
 }
