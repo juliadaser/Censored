@@ -222,6 +222,12 @@ h2 {
   body {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 100px;
   }
 
   #rightSide {
@@ -242,6 +248,10 @@ h2 {
   body {
     display: flex;
     flex-direction: column;
+  }
+
+  h1 {
+    font-size: 100px;
   }
 
   #rightSide {
