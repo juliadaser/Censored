@@ -278,15 +278,7 @@ body {
 
 /* Mobile */
 @media only screen and (max-width: 700px) {
-  body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
   /* Overlay Page */
-
   #intro-text {
     width: 90%;
   }
@@ -299,6 +291,12 @@ body {
     width: 100%;
   }
   /* Main Content */
+  #page-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
   #subtitle {
     font-size: 12px;
@@ -322,12 +320,7 @@ body {
 
 /* Tablet */
 @media only screen and (min-width: 701px) and (max-width: 900px) {
-  body {
-    display: flex;
-    flex-direction: column;
-  }
   /* Overlay Page */
-
   #intro-text {
     width: 70%;
   }
@@ -341,6 +334,10 @@ body {
   }
 
   /* Main Content */
+  #page-content {
+    display: flex;
+    flex-direction: column;
+  }
 
   #rightSide {
     width: 100vw;
