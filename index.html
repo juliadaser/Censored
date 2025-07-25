@@ -2,49 +2,62 @@
 <html>
   <head>
     <title>Censored</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-
-    <div id="leftSide">
-
-      <div id="titleDiv">
-        <h1>CENSORED</h1>
-        <div id="subtitle">
-          <h2>Press Freedom Visualizer</h2>
-          <button id="infoButton" onclick="displayInfo()">INFO</button>
-        </div>
-      </div>
-
-      <div id="pixelDiv">
-        <div id="dropDowns">
-          <div class="select-wrapper">
-            <span class="pulsing-dot" aria-hidden="true"></span>
-            <span id="userCountry">Loading...</span>
-          </div>
-          <div class="custom-dropdown" id="dropdown">
-            <button class="dropdown-toggle" id="dropdownToggle">
-              Select Country
-            </button>
-            <!-- <div style="border: 1px solid black;"></div> -->
-            <ul class="dropdown-menu" id="dropdownMenu"></ul>
-          </div>
-        </div>
-        <div id="pixelScreen">
-          <canvas id="canvas" data-width="700"></canvas>
-        </div>
-      </div>
-
-    </div>
-    <div id="rightSide">
-      <div id="infoPopup">
-        
-
+    <div id="landing-overlay">
+      <div id="intro-text">
+        <h1 id="intro-title">CENSORED</h1>
+        <h3 id="intro-credits">
+          Visualizing press freedom indexes around the world through camera
+          pixellation.
+        </h3>
+        <p id="intro-description">
+          A project that translates abstract data into an experience that
+          illustrates what our world can feel like with restricted access to
+          information. <br />By JULIA DASER | ROBIN ALTMAN | WITH DATA FROM
+          REPORTERS WITHOUT BORDERS
+        </p>
+        <button id="intro-button" onclick="removeOverlay()">Enter</button>
       </div>
     </div>
+    <div id="page-content">
+      <div id="leftSide">
+        <div id="titleDiv">
+          <h1>CENSORED</h1>
+          <div id="subtitle">
+            <h2>Press Freedom Visualizer</h2>
+            <button id="infoButton" onclick="displayInfo()">INFO</button>
+          </div>
+        </div>
 
-    <script src="js/script.js"></script>
-    <script src="js/parseCSV.js"></script>
+        <div id="pixelDiv">
+          <div id="dropDowns">
+            <div class="select-wrapper">
+              <span class="pulsing-dot" aria-hidden="true"></span>
+              <span id="userCountry">Loading...</span>
+            </div>
+            <div class="custom-dropdown" id="dropdown">
+              <button class="dropdown-toggle" id="dropdownToggle">
+                Select Country
+              </button>
+              <!-- <div style="border: 1px solid black;"></div> -->
+              <ul class="dropdown-menu" id="dropdownMenu"></ul>
+            </div>
+          </div>
+          <div id="pixelScreen">
+            <canvas id="canvas" data-width="700"></canvas>
+          </div>
+        </div>
+      </div>
+      <div id="rightSide">
+        <div id="infoPopup"></div>
+      </div>
+
+      <script src="js/script.js"></script>
+      <script src="js/parseCSV.js"></script>
+      <script src="js/overlay.js"></script>
+    </div>
   </body>
 </html>
