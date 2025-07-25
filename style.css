@@ -61,6 +61,7 @@ body {
 }
 
 #intro-button {
+  color: black;
   background-color: rgba(0, 0, 0, 0.3);
   padding: 10px 20px;
   font-size: 20px;
@@ -284,6 +285,21 @@ body {
     align-items: center;
   }
 
+  /* Overlay Page */
+
+  #intro-text {
+    width: 90%;
+  }
+
+  #intro-title {
+    font-size: 23vw;
+  }
+
+  #intro-description {
+    width: 100%;
+  }
+  /* Main Content */
+
   #subtitle {
     font-size: 12px;
   }
@@ -310,6 +326,21 @@ body {
     display: flex;
     flex-direction: column;
   }
+  /* Overlay Page */
+
+  #intro-text {
+    width: 70%;
+  }
+
+  #intro-title {
+    font-size: 20vw;
+  }
+
+  #intro-description {
+    width: 80%;
+  }
+
+  /* Main Content */
 
   #rightSide {
     width: 100vw;
