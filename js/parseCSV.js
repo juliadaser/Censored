@@ -129,6 +129,21 @@ function populateCountryDropdown(csvData) {
         SelectedCountryVal = match ? match["Score 2025"] : null;
 
         console.log("Selected:", countryName, SelectedCountryVal);
+
+        const political_score = row["Political Context"];
+        const economic_score = row["Economic Context"];
+        const legislative_score = row["Legal Context"];
+        const social_score = row["Social Context"];
+        const security_score = row["Safety"];
+
+        dataviz(
+          countryName,
+          political_score,
+          economic_score,
+          legislative_score,
+          social_score,
+          security_score
+        );
       });
 
       // (Optional) JS hover for debug/logging
@@ -149,4 +164,40 @@ function calculateMinMaxScores(data) {
 
   lowestScore = Math.min(...scores);
   highestScore = Math.max(...scores);
+}
+
+function dataviz(
+  selectedCounty,
+  political_score,
+  economic_score,
+  legislative_score,
+  social_score,
+  security_score
+) {
+  document.getElementById("analyzed-country").innerHTML =
+    "Press Freedom Category of <strong>" + selectedCounty + "</strong>";
+
+  const political_categoy = document.getElementById("political");
+  const economic_categoy = document.getElementById("economic");
+  const legislative_categoy = document.getElementById("legislative");
+  const social_categoy = document.getElementById("social");
+  const security_categoy = document.getElementById("security");
+
+  political_categoy.style.width = political_score + "%";
+  economic_categoy.style.width = economic_score + "%";
+  legislative_categoy.style.width = legislative_score + "%";
+  social_categoy.style.width = social_score + "%";
+  security_categoy.style.width = security_score + "%";
+
+  const political_categoy_num = document.getElementById("political_num");
+  const economic_categoy_num = document.getElementById("economic_num");
+  const legislative_categoy_num = document.getElementById("legislative_num");
+  const social_categoy_num = document.getElementById("social_num");
+  const security_categoy_num = document.getElementById("security_num");
+
+  political_categoy_num.innerHTML = political_score + "/100";
+  economic_categoy_num.innerHTML = economic_score + "/100";
+  legislative_categoy_num.innerHTML = legislative_score + "/100";
+  social_categoy_num.innerHTML = social_score + "/100";
+  security_categoy_num.innerHTML = security_score + "/100";
 }
