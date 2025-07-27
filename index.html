@@ -10,15 +10,18 @@
       <div id="intro-text">
         <h1 id="intro-title">CENSORED</h1>
         <h3 id="intro-credits" class="fade-in">
-          Visualizing press freedom indexes around the world through camera pixellation.
+          Visualizing press freedom indexes around the world through camera
+          pixellation.
         </h3>
         <p id="intro-description" class="fade-in">
-          A project that translates abstract data into an experience that illustrates
-          what our world can feel like with restricted access to information.
+          A project that translates abstract data into an experience that
+          illustrates what our world can feel like with restricted access to
+          information.
         </p>
-<button id="intro-button" onclick="removeOverlay()">
-  <span>Enter</span>
-</button>      </div>
+        <button id="intro-button" onclick="removeOverlay()">
+          <span>Enter</span>
+        </button>
+      </div>
     </div>
     <div id="page-content">
       <div id="leftSide">
@@ -48,99 +51,137 @@
           </div>
         </div>
       </div>
-      <div id="rightSide">
-        <div id="infoPopup">
-          <div class="middle-flex-box">
-            <div>
-              <p id="analyzed-country">Waiting for country selection</p>
-            </div>
-            <div class="category">
+      <div id="infoPopup">
+        <div class="top-flex-box">
+          <div>
+            <p id="analyzed-country">Waiting for selection</p>
+          </div>
+          <div class="category" onclick="togglePopups('pop-up-1', 'title-1')">
+            <div class="category-title">
+              <div id="title-1" class="title">&darr;</div>
               <div>Political context</div>
-              <div id="political_num">X/100</div>
-              <div class="data-viz" id="political"></div>
             </div>
-            <div class="category">
+            <div id="political_num">X/100</div>
+            <div class="data-viz" id="political"></div>
+          </div>
+          <p id="pop-up-1" class="pop-up">
+            Evaluates how free and supported the media is in holding political
+            powers accountable without pressure or interference from the state
+            or political groups.
+          </p>
+          <div class="category" onclick="togglePopups('pop-up-2', 'title-2')">
+            <div class="category-title">
+              <div id="title-2" class="title">&darr;</div>
               <div>Economic context</div>
-              <div id="economic_num">X/100</div>
-              <div class="data-viz" id="economic"></div>
             </div>
-            <div class="category">
+            <div id="economic_num">X/100</div>
+            <div class="data-viz" id="economic"></div>
+          </div>
+          <p id="pop-up-2" class="pop-up">
+            Evaluates how much financial pressure (whether from the government,
+            advertisers, or owners) affects media independence and fairness.
+          </p>
+          <div class="category" onclick="togglePopups('pop-up-3', 'title-3')">
+            <div class="category-title">
+              <div id="title-3" class="title">&darr;</div>
               <div>Legal framework</div>
-              <div id="legislative_num">X/100</div>
-              <div class="data-viz" id="legislative"></div>
             </div>
-            <div class="category">
+            <div id="legislative_num">X/100</div>
+            <div class="data-viz" id="legislative"></div>
+          </div>
+          <p id="pop-up-3" class="pop-up">
+            Evaluates how well journalists are protected by laws to freely
+            express themselves, access information, and avoid punishment or
+            violence for their work.
+          </p>
+          <div class="category" onclick="togglePopups('pop-up-4', 'title-4')">
+            <div class="category-title">
+              <div id="title-4" class="title">&darr;</div>
               <div>Sociocultural context</div>
-              <div id="social_num">X/100</div>
-              <div class="data-viz" id="social"></div>
             </div>
-            <div class="category">
+            <div id="social_num">X/100</div>
+            <div class="data-viz" id="social"></div>
+          </div>
+          <p id="pop-up-4" class="pop-up">
+            Evaluates how much social or cultural biases and taboos prevent
+            journalists from covering certain topics or expressing themselves
+            freely.
+          </p>
+          <div class="category" onclick="togglePopups('pop-up-5','title-5')">
+            <div class="category-title">
+              <div id="title-5" class="title">&darr;</div>
               <div>Security</div>
-              <div id="security_num">X/100</div>
-              <div class="data-viz" id="security"></div>
             </div>
+            <div id="security_num">X/100</div>
+            <div class="data-viz" id="security"></div>
           </div>
-          <div class="top-flex-box">
-            <div class="top-flex-child_1">
-              <div class="data-title" id="dataTitle">Data</div>
-              <div class="about-RSF">
-                The data for this project is from the non-profit organization
-                <span class="highlight italic">Reporters without Borders</span>
-                (RSF). Their annual press freedom
-                <span class="highlight"
-                  >list compares the press freedom of 180 countries and
-                  territories</span
-                >
-                in an effort to combat censorship, protect journalists, and
-                advocate for free independent media globally.
-              </div>
-              <a
-                class="data-link"
-                href="https://rsf.org/en/index"
-                target="”_blank”"
-                >View Data</a
+          <p id="pop-up-5" class="pop-up">
+            Evaluates how physically, emotionally, and professionally safe
+            journalists are while doing their job, including threats, violence,
+            and intimidation.
+          </p>
+        </div>
+        <div class="middle-flex-box">
+          <div class="middle-flex-child_1">
+            <div class="data-title" id="dataTitle">The Data</div>
+            <div class="about-RSF">
+              The data for this project is produced by the non-profit
+              organization
+              <span class="highlight italic">Reporters without Borders</span>
+              . Their annual press freedom scores
+              <span class="highlight">
+                compare the press freedom of 180 countries and territories</span
               >
+              to combat censorship, protect journalists, and advocate for free
+              independent media globally.
             </div>
-            <div class="top-flex-child_2">
-              <div class="data-title" id="defTitle" >Definition</div>
+            <a
+              class="data-link"
+              href="https://rsf.org/en/index"
+              target="”_blank”"
+              >View official list</a
+            >
+          </div>
+          <div class="middle-flex-child_2">
+            <div class="data-title" id="defTitle">What is Press Freedom?</div>
 
-              <div class="press-freedom-definition">
-                “<span class="highlight">Press freedom</span> is defined as the
-                ability of journalists as individuals and collectives to select,
-                produce, and disseminate news in the public interest
-                <span class="highlight"
-                  >independent of political, economic, legal, and social
-                  interference</span
-                >
-                and in the absence of threats to their physical and mental
-                safety.”
-              </div>
-              <a class="data-link" href="https://rsf.org/" target="”_blank”"
-                >More about Press Freedom</a
+            <div class="press-freedom-definition">
+              “<span class="highlight">Press freedom</span> is defined as the
+              ability of journalists as individuals and collectives to select,
+              produce, and disseminate news in the public interest
+              <span class="highlight"
+                >independent of political, economic, legal, and social
+                interference</span
               >
+              and in the absence of threats to their physical and mental
+              safety.” [Reporters without Borders]
             </div>
-          </div>
-          <div class="bottom-flex-box">
-            <div>Website by</div>
-            &nbsp;
-            <a
-              href="https://juliadaser.com"
-              target="”_blank”"
-              class="portfolio-link"
+            <a class="data-link" href="https://rsf.org/" target="”_blank”"
+              >Find out more</a
             >
-              Julia Daser </a
-            >&nbsp;
-            <div>and</div>
-            &nbsp;
-            <a
-              href="https://www.altrs.wiki"
-              target="”_blank”"
-              class="portfolio-link"
-            >
-              Robin Altman
-            </a>
           </div>
         </div>
+        <div class="bottom-flex-box">
+          <div>Website by</div>
+          &nbsp;
+          <a
+            href="https://juliadaser.com"
+            target="”_blank”"
+            class="portfolio-link"
+          >
+            Julia Daser </a
+          >&nbsp;
+          <div>and</div>
+          &nbsp;
+          <a
+            href="https://www.altrs.wiki"
+            target="”_blank”"
+            class="portfolio-link"
+          >
+            Robin Altman
+          </a>
+        </div>
+        <div class="last-spacer"></div>
       </div>
 
       <script src="js/script.js"></script>

@@ -177,7 +177,7 @@ function dataviz(
 ) {
   let container = document.getElementById("analyzed-country");
 
-  let prefix = "Press Freedom Category of ";
+  let prefix = "Score Breakdown of ";
   let countryName = selectedCounty; // Use the parameter passed in!
 
   // First set static prefix

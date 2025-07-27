@@ -1,15 +1,38 @@
-let title = document.getElementById('intro-title');
-let credits = document.getElementById('intro-credits');
-let description = document.getElementById('intro-description');
-let analyzeTitle = document.getElementById('analyzed-country');
-let dataTitle = document.getElementById('dataTitle');
-let defTitle = document.getElementById('defTitle');
+let title = document.getElementById("intro-title");
+let credits = document.getElementById("intro-credits");
+let description = document.getElementById("intro-description");
+let analyzeTitle = document.getElementById("analyzed-country");
+let dataTitle = document.getElementById("dataTitle");
+let defTitle = document.getElementById("defTitle");
 
 function removeOverlay() {
   document.getElementById("landing-overlay").style.display = "none";
 }
-  
-window.onload = function() {
+
+function togglePopups(popupId, titleId) {
+  const allPopups = document.querySelectorAll(".pop-up");
+  const allTitles = document.querySelectorAll(".title");
+
+  allPopups.forEach((popup) => {
+    if (popup.id === popupId) {
+      const isHidden = window.getComputedStyle(popup).display === "none";
+      popup.style.display = isHidden ? "block" : "none";
+      document.getElementById(titleId).innerHTML = isHidden
+        ? "&uarr;"
+        : "&darr;";
+    } else {
+      popup.style.display = "none";
+    }
+  });
+
+  allTitles.forEach((title) => {
+    if (title.id !== titleId) {
+      title.innerHTML = "&darr;";
+    }
+  });
+}
+
+window.onload = function () {
   scrambleText(title, "Censored", 1000, 20);
   document.querySelectorAll(".fade-in").forEach((el, index) => {
     setTimeout(() => {
@@ -17,7 +40,6 @@ window.onload = function() {
     }, index * 300);
   });
 };
-
 
 function scrambleText(element, finalText, duration, fps) {
   const chars = "!@BLIWNCP1FEqrguwievslqWGWLA90247{";
