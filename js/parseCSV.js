@@ -118,6 +118,7 @@ function populateCountryDropdown(csvData) {
       li.appendChild(span);
 
       li.addEventListener("click", () => {
+        event.stopPropagation();
         toggle.textContent = countryName;
         toggle.setAttribute("data-value", countryName);
         dropdown.classList.remove("open");
@@ -167,15 +168,28 @@ function calculateMinMaxScores(data) {
 }
 
 function dataviz(
-  selectedCounty,
+  selectedCounty, // <== parameter name
   political_score,
   economic_score,
   legislative_score,
   social_score,
   security_score
 ) {
-  document.getElementById("analyzed-country").innerHTML =
-    "Press Freedom Category of <strong>" + selectedCounty + "</strong>";
+  let container = document.getElementById("analyzed-country");
+
+  let prefix = "Press Freedom Category of ";
+  let countryName = selectedCounty; // Use the parameter passed in!
+
+  // First set static prefix
+  container.textContent = prefix;
+
+  // Create a span for the country name that you scramble
+  let countrySpan = document.createElement("span");
+  countrySpan.style.fontWeight = "bold";
+  container.appendChild(countrySpan);
+
+  // Run scrambleText on countrySpan
+  scrambleText(countrySpan, countryName, 200, 20);
 
   const political_categoy = document.getElementById("political");
   const economic_categoy = document.getElementById("economic");

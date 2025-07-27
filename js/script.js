@@ -24,16 +24,6 @@ let infoBtn = document.getElementById("infoButton");
 let infoPopup = document.getElementById("infoPopup");
 let popUpShowing = false;
 
-function displayInfo() {
-  if (popUpShowing == false) {
-    infoPopup.style.display = "block";
-    popUpShowing = true;
-  } else if (popUpShowing == true) {
-    infoPopup.style.display = "none";
-    popUpShowing = false;
-  }
-}
-
 // CANVAS SIZING
 
 function getResponsiveCanvasWidth() {
@@ -45,6 +35,36 @@ function getResponsiveCanvasWidth() {
     return 750; // desktop
   }
 }
+
+function displayInfo() {
+  if (popUpShowing == false) {
+    infoPopup.style.display = "block";
+    if (window.matchMedia("(max-width: 780px)").matches) {
+      infoPopup.scrollIntoView({ behavior: "smooth" });
+    }
+    scrambleText(dataTitle, "Data", 900, 20);
+    scrambleText(defTitle, "Definition", 700, 20);
+    popUpShowing = true;
+  } else if (popUpShowing == true) {
+    infoPopup.style.display = "none";
+    popUpShowing = false;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  let title = document.getElementById("mainTitle");
+  let subtitle = document.getElementById("subtitle");
+  let infoButton = document.getElementById("infoButton");
+
+  title.addEventListener("mouseenter", () => {
+    scrambleText(title, "CENSORED", 1000, 20);
+  });
+  infoButton.addEventListener("mouseenter", () => {
+    scrambleText(infoButton, "INFO", 400, 20);
+  });
+
+});
+
 
 function updateCanvasSizeWithAspectRatio() {
   const canvasWidth = getResponsiveCanvasWidth();
@@ -240,23 +260,26 @@ const options = menu.querySelectorAll("li");
 
 menu.style.fontFamily = "Geist";
 
+// Open/close dropdown on toggle button click
 dropdown.addEventListener("click", () => {
   dropdown.classList.toggle("open");
 });
 
 options.forEach((option) => {
-  option.addEventListener("click", () => {
+  option.addEventListener("click", (event) => {
+    event.stopPropagation(); // Prevent container click toggle
     toggle.textContent = option.textContent;
     toggle.setAttribute("data-value", option.getAttribute("data-value"));
     dropdown.classList.remove("open");
-    // Optional: trigger a callback or event
     console.log("Selected:", option.getAttribute("data-value"));
   });
 });
 
-// close on outside click
+// Close dropdown on outside click stays the same
 document.addEventListener("click", (e) => {
   if (!dropdown.contains(e.target)) {
     dropdown.classList.remove("open");
   }
 });
+
+

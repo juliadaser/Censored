@@ -9,22 +9,21 @@
     <div id="landing-overlay">
       <div id="intro-text">
         <h1 id="intro-title">CENSORED</h1>
-        <h3 id="intro-credits">
-          Visualizing press freedom indexes around the world through camera
-          pixellation.
+        <h3 id="intro-credits" class="fade-in">
+          Visualizing press freedom indexes around the world through camera pixellation.
         </h3>
-        <p id="intro-description">
-          A project that translates abstract data into an experience that
-          illustrates what our world can feel like with restricted access to
-          information.
+        <p id="intro-description" class="fade-in">
+          A project that translates abstract data into an experience that illustrates
+          what our world can feel like with restricted access to information.
         </p>
-        <button id="intro-button" onclick="removeOverlay()">Enter</button>
-      </div>
+<button id="intro-button" onclick="removeOverlay()">
+  <span>Enter</span>
+</button>      </div>
     </div>
     <div id="page-content">
       <div id="leftSide">
         <div id="titleDiv">
-          <h1>CENSORED</h1>
+          <h1 id="mainTitle">CENSORED</h1>
           <div id="subtitle">
             <h2>Press Freedom Visualizer</h2>
             <button id="infoButton" onclick="displayInfo()">INFO</button>
@@ -53,7 +52,7 @@
         <div id="infoPopup">
           <div class="middle-flex-box">
             <div>
-              <p id="analyzed-country">Waiting for selection</p>
+              <p id="analyzed-country">Waiting for country selection</p>
             </div>
             <div class="category">
               <div>Political context</div>
@@ -83,7 +82,7 @@
           </div>
           <div class="top-flex-box">
             <div class="top-flex-child_1">
-              <div class="data-title">Data</div>
+              <div class="data-title" id="dataTitle">Data</div>
               <div class="about-RSF">
                 The data for this project is from the non-profit organization
                 <span class="highlight italic">Reporters without Borders</span>
@@ -103,7 +102,7 @@
               >
             </div>
             <div class="top-flex-child_2">
-              <div class="data-title">Definition</div>
+              <div class="data-title" id="defTitle" >Definition</div>
 
               <div class="press-freedom-definition">
                 “<span class="highlight">Press freedom</span> is defined as the
@@ -134,7 +133,7 @@
             <div>and</div>
             &nbsp;
             <a
-              href="https://google.com"
+              href="https://www.altrs.wiki"
               target="”_blank”"
               class="portfolio-link"
             >
