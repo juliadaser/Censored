@@ -195,9 +195,9 @@ function dataviz(
   const social_categoy_num = document.getElementById("social_num");
   const security_categoy_num = document.getElementById("security_num");
 
-  political_categoy_num.innerHTML = political_score + "/100";
-  economic_categoy_num.innerHTML = economic_score + "/100";
-  legislative_categoy_num.innerHTML = legislative_score + "/100";
-  social_categoy_num.innerHTML = social_score + "/100";
-  security_categoy_num.innerHTML = security_score + "/100";
+  political_categoy_num.innerHTML = Math.round(political_score) + "/100";
+  economic_categoy_num.innerHTML = Math.round(economic_score) + "/100";
+  legislative_categoy_num.innerHTML = Math.round(legislative_score) + "/100";
+  social_categoy_num.innerHTML = Math.round(social_score) + "/100";
+  security_categoy_num.innerHTML = Math.round(security_score) + "/100";
 }

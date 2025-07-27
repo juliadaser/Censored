@@ -25,25 +25,30 @@ let infoPopup = document.getElementById("infoPopup");
 let popUpShowing = false;
 
 function displayInfo() {
-  if(popUpShowing == false){infoPopup.style.display = "block"; popUpShowing = true;}
-  else if(popUpShowing == true){infoPopup.style.display = "none"; popUpShowing = false;}
+  if (popUpShowing == false) {
+    infoPopup.style.display = "block";
+    popUpShowing = true;
+  } else if (popUpShowing == true) {
+    infoPopup.style.display = "none";
+    popUpShowing = false;
+  }
 }
 
 // CANVAS SIZING
 
 function getResponsiveCanvasWidth() {
-  if (window.matchMedia('(max-width: 700px)').matches) {
+  if (window.matchMedia("(max-width: 700px)").matches) {
     return 350; // mobile
-  } else if (window.matchMedia('(max-width: 900px)').matches) {
+  } else if (window.matchMedia("(max-width: 780px)").matches) {
     return 650; // tablet
   } else {
-    return 700; // desktop
+    return 750; // desktop
   }
 }
 
 function updateCanvasSizeWithAspectRatio() {
   const canvasWidth = getResponsiveCanvasWidth();
-  canvas.setAttribute('data-width', canvasWidth);
+  canvas.setAttribute("data-width", canvasWidth);
   splitX = canvasWidth / 2;
 
   const aspectRatio = video.videoWidth / video.videoHeight || 4 / 3; // Fallback ratio
@@ -53,19 +58,20 @@ function updateCanvasSizeWithAspectRatio() {
   canvas.height = calculatedHeight;
   // document.getElementById('infoPopup').style.height = calculatedHeight;
 
-  dropDowns.style.width = (canvasWidth + 2) + "px";
+  dropDowns.style.width = canvasWidth + 2 + "px";
   dropDownMenu.style.height = calculatedHeight + "px";
 }
 
 // Step 3: Listen for screen resizes
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   if (video.videoWidth) {
     updateCanvasSizeWithAspectRatio();
   }
 });
 
 // Step 4: Get webcam and update canvas
-navigator.mediaDevices.getUserMedia({ video: true })
+navigator.mediaDevices
+  .getUserMedia({ video: true })
   .then((stream) => {
     video.srcObject = stream;
 
@@ -76,7 +82,6 @@ navigator.mediaDevices.getUserMedia({ video: true })
   .catch((err) => {
     console.error("Webcam error:", err);
   });
-
 
 // Checking if mouse is within 10px of splitX.
 canvas.addEventListener("mousedown", (e) => {
@@ -255,5 +260,3 @@ document.addEventListener("click", (e) => {
     dropdown.classList.remove("open");
   }
 });
-
-
