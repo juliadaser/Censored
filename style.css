@@ -425,6 +425,7 @@ body {
   color: white;
   padding: 10px;
   margin: 0px;
+  margin-bottom: 30px;
   /* border-style: solid;
   border-width: 1px 1px 1px 1px; */
   display: flex;
@@ -511,6 +512,8 @@ body {
 
   #rightSide {
     width: 100vw;
+    height: auto;
+    margin-bottom: 30px;
     padding: 0px;
     padding-top: 15px;
   }
@@ -545,6 +548,8 @@ body {
 
   #rightSide {
     width: 100vw;
+    height: auto;
+    margin-bottom: 30px;
     padding: 0px;
     padding-top: 15px;
   }
