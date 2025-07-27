@@ -101,7 +101,33 @@ navigator.mediaDevices
   })
   .catch((err) => {
     console.error("Webcam error:", err);
+    useFallbackImage();
   });
+
+function useFallbackImage() {
+  const img = new Image();
+  img.src = "asset/temp.jpg"; // Replace with your actual image path
+
+  img.onload = () => {
+    const responsiveWidth = getResponsiveCanvasWidth();
+
+    // Maintain aspect ratio
+    const aspectRatio = img.height / img.width;
+    const responsiveHeight = responsiveWidth * aspectRatio;
+
+    // Set canvas size
+    canvas.width = responsiveWidth;
+    canvas.height = responsiveHeight;
+
+    // Draw image on canvas
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  };
+
+  img.onerror = () => {
+    console.error("Failed to load fallback image.");
+  };
+}
+
 
 // Checking if mouse is within 10px of splitX.
 canvas.addEventListener("mousedown", (e) => {
