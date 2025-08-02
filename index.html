@@ -40,12 +40,20 @@
               <span id="userCountry">Loading...</span>
             </div>
             <div class="custom-dropdown" id="dropdown">
-              <button class="dropdown-toggle" id="dropdownToggle">
-                Select Country
-              </button>
-              <ul class="dropdown-menu" id="dropdownMenu"></ul>
+              <input
+                type="text"
+                placeholder="Select Country"
+                class="dropdown-toggle"
+                id="dropdownToggle"
+                onkeyup="filterFunction()"
+                onclick="resetCountrySearch()"
+              />
+              <div id="myDropdown" class="dropdown-content">
+                <ul class="dropdown-menu" id="dropdownMenu"></ul>
+              </div>
             </div>
           </div>
+          <img id="arrow-icon" src="asset/icon.png" />
           <div id="pixelScreen">
             <canvas id="canvas" data-width="750"></canvas>
           </div>

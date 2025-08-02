@@ -26,6 +26,7 @@ fetch("data/2025.csv")
     pressFreedomVals = parseCSV(text);
     matchUserCountry(pressFreedomVals); // finding match between unser's location and CSV file
     populateCountryDropdown(pressFreedomVals);
+    shuffleDropdownItems();
     calculateMinMaxScores(pressFreedomVals);
   });
 
@@ -119,7 +120,8 @@ function populateCountryDropdown(csvData) {
 
       li.addEventListener("click", () => {
         event.stopPropagation();
-        toggle.textContent = countryName;
+        toggle.value = "";
+        toggle.placeholder = countryName;
         toggle.setAttribute("data-value", countryName);
         dropdown.classList.remove("open");
 
@@ -157,6 +159,54 @@ function populateCountryDropdown(csvData) {
   });
 }
 
+// autofill funciton for country selection
+function filterFunction() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("dropdownToggle");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("myDropdown");
+  a = div.getElementsByTagName("li");
+  for (i = 0; i < a.length; i++) {
+    txtValue = a[i].textContent || a[i].innerText;
+    if (txtValue.toUpperCase().startsWith(filter)) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+
+// resetting filter
+function resetCountrySearch() {
+  shuffleDropdownItems();
+  const input = document.getElementById("dropdownToggle");
+  const dropdown = document.getElementById("myDropdown");
+  const items = dropdown.getElementsByTagName("li");
+
+  // Reset placeholder and clear input
+  input.placeholder = "Select Country";
+  input.value = "";
+
+  // Show all list items
+  for (let i = 0; i < items.length; i++) {
+    items[i].style.display = "";
+  }
+}
+
+//shuffling list
+function shuffleDropdownItems() {
+  const ul = document.getElementById("dropdownMenu");
+  const items = Array.from(ul.children);
+
+  // Fisher–Yates shuffle
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+
+  items.forEach((item) => ul.appendChild(item));
+}
+
 // Calculating the lowest and highest score
 function calculateMinMaxScores(data) {
   const scores = data
@@ -168,7 +218,7 @@ function calculateMinMaxScores(data) {
 }
 
 function dataviz(
-  selectedCounty, // <== parameter name
+  selectedCounty,
   political_score,
   economic_score,
   legislative_score,

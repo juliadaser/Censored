@@ -62,9 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   infoButton.addEventListener("mouseenter", () => {
     scrambleText(infoButton, "INFO", 400, 20);
   });
-
 });
-
 
 function updateCanvasSizeWithAspectRatio() {
   const canvasWidth = getResponsiveCanvasWidth();
@@ -79,7 +77,7 @@ function updateCanvasSizeWithAspectRatio() {
   // document.getElementById('infoPopup').style.height = calculatedHeight;
 
   dropDowns.style.width = canvasWidth + 2 + "px";
-  dropDownMenu.style.height = calculatedHeight + "px";
+  dropDownMenu.style.height = calculatedHeight - 1 + "px";
 }
 
 // Step 3: Listen for screen resizes
@@ -128,7 +126,6 @@ function useFallbackImage() {
   };
 }
 
-
 // Checking if mouse is within 10px of splitX.
 canvas.addEventListener("mousedown", (e) => {
   if (Math.abs(e.offsetX - splitX) < 40) isDragging = true;
@@ -167,6 +164,26 @@ function adjustValue(value) {
     return map(value, 0, 100, 100, 1);
   }
   return map(value, lowestScore, highestScore - 1, 100, 1);
+}
+
+const arrowIcon = document.getElementById("arrow-icon");
+
+function updateIconPosition() {
+  const rect = canvas.getBoundingClientRect();
+  const handleWidth = arrowIcon.offsetWidth;
+  const handleHeight = arrowIcon.offsetHeight;
+
+  arrowIcon.style.left = `${
+    rect.left + window.scrollX + splitX - handleWidth / 2
+  }px`;
+  arrowIcon.style.top = `${
+    rect.top +
+    window.scrollY +
+    canvas.height -
+    10 -
+    30 +
+    (30 - handleHeight) / 2
+  }px`;
 }
 
 function draw() {
@@ -257,20 +274,8 @@ function draw() {
   const rectX = splitX - rectWidth / 2;
   const rectY = canvas.height - 10 - rectHeight;
 
-  // Draw filled white rectangle with black border
-  ctx.fillStyle = "white";
-  ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
-
-  ctx.strokeStyle = "black";
-  ctx.lineWidth = 1;
-  ctx.strokeRect(rectX, rectY, rectWidth, rectHeight);
-
-  // Draw "<>" text inside the rectangle
-  ctx.fillStyle = "black";
-  ctx.font = "23px manrope";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText("< >", splitX, rectY + rectHeight / 2);
+  // update position of arrow-icon:
+  updateIconPosition();
 
   requestAnimationFrame(draw);
 }
@@ -307,5 +312,3 @@ document.addEventListener("click", (e) => {
     dropdown.classList.remove("open");
   }
 });
-
-
