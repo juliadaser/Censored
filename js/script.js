@@ -85,10 +85,25 @@ function updateCanvasSizeWithAspectRatio() {
 
 // Step 3: Listen for screen resizes
 window.addEventListener("resize", () => {
-  if (video.videoWidth) {
+  if (usingFallback && fallbackImg?.complete) {
+    resizeCanvasToFallbackImage();
+  } else if (video.videoWidth) {
     updateCanvasSizeWithAspectRatio();
   }
 });
+
+function resizeCanvasToFallbackImage() {
+  const responsiveWidth = getResponsiveCanvasWidth();
+  const aspectRatio = fallbackImg.height / fallbackImg.width;
+  const responsiveHeight = responsiveWidth * aspectRatio;
+
+  canvas.width = responsiveWidth;
+  canvas.height = responsiveHeight;
+
+  splitX = canvas.width / 2;
+  dropDowns.style.width = canvas.width + 2 + "px";
+  dropDownMenu.style.height = canvas.height - 1 + "px";
+}
 
 // Step 4: Get webcam and update canvas
 navigator.mediaDevices
