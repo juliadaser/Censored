@@ -4,6 +4,9 @@ const canvasWidth = parseInt(canvas.dataset.width, 10);
 let isDragging = false;
 let splitX;
 
+let fallbackImg = null;
+let usingFallback = false;
+
 const video = Object.assign(document.createElement("video"), {
   autoplay: true,
   playsInline: true,
@@ -103,28 +106,33 @@ navigator.mediaDevices
   });
 
 function useFallbackImage() {
-  const img = new Image();
-  img.src = "asset/temp.jpg"; // Replace with your actual image path
+  fallbackImg = new Image();
+  fallbackImg.src = "asset/temp.jpg";
 
-  img.onload = () => {
+  fallbackImg.onload = () => {
+    usingFallback = true;
+
     const responsiveWidth = getResponsiveCanvasWidth();
-
-    // Maintain aspect ratio
-    const aspectRatio = img.height / img.width;
+    const aspectRatio = fallbackImg.height / fallbackImg.width;
     const responsiveHeight = responsiveWidth * aspectRatio;
 
-    // Set canvas size
     canvas.width = responsiveWidth;
     canvas.height = responsiveHeight;
 
-    // Draw image on canvas
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    // Also update splitX and dropdowns
+    splitX = responsiveWidth / 2;
+    dropDowns.style.width = responsiveWidth + 2 + "px";
+    dropDownMenu.style.height = responsiveHeight - 1 + "px";
+
+    requestAnimationFrame(draw);
   };
 
-  img.onerror = () => {
+  fallbackImg.onerror = () => {
     console.error("Failed to load fallback image.");
   };
 }
+
+
 
 // Checking if mouse is within 10px of splitX.
 canvas.addEventListener("mousedown", (e) => {
@@ -202,20 +210,37 @@ function draw() {
   offLeftCtx = UsrCountryCanvas.getContext("2d");
   offRightCtx = SelCountryCanvas.getContext("2d");
 
-  offLeftCtx.drawImage(
-    video,
-    0,
-    0,
-    UsrCountryCanvas.width,
-    UsrCountryCanvas.height
-  );
-  offRightCtx.drawImage(
-    video,
-    0,
-    0,
-    SelCountryCanvas.width,
-    SelCountryCanvas.height
-  );
+  const source = usingFallback ? fallbackImg : video;
+
+
+offLeftCtx.drawImage(
+  source,
+  0,
+  0,
+  UsrCountryCanvas.width,
+  UsrCountryCanvas.height
+);
+offRightCtx.drawImage(
+  source,
+  0,
+  0,
+  SelCountryCanvas.width,
+  SelCountryCanvas.height
+);
+  // offLeftCtx.drawImage(
+  //   video,
+  //   0,
+  //   0,
+  //   UsrCountryCanvas.width,
+  //   UsrCountryCanvas.height
+  // );
+  // offRightCtx.drawImage(
+  //   video,
+  //   0,
+  //   0,
+  //   SelCountryCanvas.width,
+  //   SelCountryCanvas.height
+  // );
 
   ctx.imageSmoothingEnabled = false;
 
