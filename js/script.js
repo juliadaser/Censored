@@ -83,18 +83,17 @@ function updateCanvasSizeWithAspectRatio() {
   dropDownMenu.style.height = calculatedHeight - 1 + "px";
 }
 
-// Step 3: Listen for screen resizes
 window.addEventListener("resize", () => {
-  if (usingFallback && fallbackImg?.complete) {
-    resizeCanvasToFallbackImage();
+  if (usingFallback && fallbackImg?.videoWidth) {
+    resizeCanvasToFallbackVideo();
   } else if (video.videoWidth) {
     updateCanvasSizeWithAspectRatio();
   }
 });
 
-function resizeCanvasToFallbackImage() {
+function resizeCanvasToFallbackVideo() {
   const responsiveWidth = getResponsiveCanvasWidth();
-  const aspectRatio = fallbackImg.height / fallbackImg.width;
+  const aspectRatio = fallbackImg.videoHeight / fallbackImg.videoWidth;
   const responsiveHeight = responsiveWidth * aspectRatio;
 
   canvas.width = responsiveWidth;
@@ -117,35 +116,41 @@ navigator.mediaDevices
   })
   .catch((err) => {
     console.error("Webcam error:", err);
-    useFallbackImage();
+    useFallbackVideo();
   });
 
-function useFallbackImage() {
-  fallbackImg = new Image();
-  fallbackImg.src = "asset/temp.jpg";
+function useFallbackVideo() {
+  const fallbackVideo = document.createElement("video");
+  fallbackVideo.src = "asset/Untitled.mov"; // Your fallback video
+  fallbackVideo.loop = true;
+  fallbackVideo.muted = true;
+  fallbackVideo.autoplay = true;
+  fallbackVideo.playsInline = true;
 
-  fallbackImg.onload = () => {
+  fallbackVideo.addEventListener("loadedmetadata", () => {
     usingFallback = true;
+    fallbackImg = fallbackVideo; // reuse the same variable
 
     const responsiveWidth = getResponsiveCanvasWidth();
-    const aspectRatio = fallbackImg.height / fallbackImg.width;
+    const aspectRatio = fallbackVideo.videoHeight / fallbackVideo.videoWidth;
     const responsiveHeight = responsiveWidth * aspectRatio;
 
     canvas.width = responsiveWidth;
     canvas.height = responsiveHeight;
 
-    // Also update splitX and dropdowns
     splitX = responsiveWidth / 2;
     dropDowns.style.width = responsiveWidth + 2 + "px";
     dropDownMenu.style.height = responsiveHeight - 1 + "px";
 
+    fallbackVideo.play();
     requestAnimationFrame(draw);
-  };
+  });
 
-  fallbackImg.onerror = () => {
-    console.error("Failed to load fallback image.");
+  fallbackVideo.onerror = () => {
+    console.error("Failed to load fallback video.");
   };
 }
+
 
 
 
