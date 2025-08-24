@@ -28,7 +28,6 @@ let infoPopup = document.getElementById("infoPopup");
 let popUpShowing = false;
 
 // CANVAS SIZING
-
 function getResponsiveCanvasWidth() {
   if (window.matchMedia("(max-width: 700px)").matches) {
     return 350; // mobile
@@ -121,7 +120,7 @@ navigator.mediaDevices
 
 function useFallbackVideo() {
   const fallbackVideo = document.createElement("video");
-  fallbackVideo.src = "asset/Untitled.mov"; // Your fallback video
+  fallbackVideo.src = "asset/Untitled.mov";
   fallbackVideo.loop = true;
   fallbackVideo.muted = true;
   fallbackVideo.autoplay = true;
@@ -151,17 +150,14 @@ function useFallbackVideo() {
   };
 }
 
-
-
-
 // Checking if mouse is within 10px of splitX.
 canvas.addEventListener("mousedown", (e) => {
-  if (Math.abs(e.offsetX - splitX) < 40) isDragging = true;
+  if (Math.abs(e.offsetX - splitX) < 60) isDragging = true;
 });
 
 // Updating splitX when dragging mouse
 canvas.addEventListener("mousemove", (e) => {
-  if (isDragging) splitX = Math.max(0, Math.min(canvas.width, e.offsetX));
+  if (isDragging) splitX = Math.max(26, Math.min(canvas.width - 24, e.offsetX));
 });
 
 // Stop dragging when mouse is released or cursor leaves canvas area
@@ -232,21 +228,20 @@ function draw() {
 
   const source = usingFallback ? fallbackImg : video;
 
-
-offLeftCtx.drawImage(
-  source,
-  0,
-  0,
-  UsrCountryCanvas.width,
-  UsrCountryCanvas.height
-);
-offRightCtx.drawImage(
-  source,
-  0,
-  0,
-  SelCountryCanvas.width,
-  SelCountryCanvas.height
-);
+  offLeftCtx.drawImage(
+    source,
+    0,
+    0,
+    UsrCountryCanvas.width,
+    UsrCountryCanvas.height
+  );
+  offRightCtx.drawImage(
+    source,
+    0,
+    0,
+    SelCountryCanvas.width,
+    SelCountryCanvas.height
+  );
   // offLeftCtx.drawImage(
   //   video,
   //   0,

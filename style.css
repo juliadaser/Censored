@@ -268,7 +268,7 @@ body {
   border: 1px solid black;
   margin-top: 0px;
   margin-left: -1px;
-  z-index: 10;
+  z-index: 12;
   list-style: none;
   padding: 0;
   overflow: scroll;
